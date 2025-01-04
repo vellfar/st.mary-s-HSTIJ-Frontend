@@ -7,5 +7,6 @@ export interface Product {
   rating: number;
   slug: string;
   image: string;
+  description: string;
 }
 

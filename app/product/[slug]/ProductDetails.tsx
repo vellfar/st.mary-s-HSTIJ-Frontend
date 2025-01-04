@@ -161,7 +161,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
               ))}
               <span className="text-sm text-gray-500">({product.rating} out of 5 stars)</span>
             </div>
-            <p className="text-4xl font-bold text-gray-900">${(product.price / 100000).toFixed(2)}M</p>
+            <p className="text-4xl font-bold text-gray-900">UGX {(product.price)}</p>
             {product.isNew && (
               <Badge className="bg-blue-500 text-white">New</Badge>
             )}

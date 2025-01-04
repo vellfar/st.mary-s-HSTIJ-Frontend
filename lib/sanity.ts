@@ -15,3 +15,28 @@ export function urlFor(source: any) {
   return builder.image(source)
 }
 
+export async function getFeaturedProduct() {
+  const query = `*[_type == "product" && featured == true][0] {
+    name,
+    price,
+    rating,
+    "image": image.asset->url,
+    description,
+    category
+  }`
+  
+  return client.fetch(query)
+}
+
+export async function getProducts() {
+  const query = `*[_type == "product" && featured != true] {
+    name,
+    price,
+    rating,
+    "image": image.asset->url,
+    category
+  }`
+  
+  return client.fetch(query)
+}
+

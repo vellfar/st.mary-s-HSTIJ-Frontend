@@ -6,8 +6,29 @@ import Service from '@/components/Service'
 import Shop from '@/components/Shop'
 import Testimonials from '@/components/Testimonials'
 import Cta from '@/components/Cta'
+import { client } from '@/lib/sanity'
 
-export default function Home() {
+
+async function getProducts() {
+  return await client.fetch(`*[_type == "product"] {
+    _id,
+    name,
+    price,
+    category,
+    isNew,
+    rating,
+    "slug": slug.current,
+    "image": image.asset->url
+  }`)
+}
+
+async function getCategories() {
+  return await client.fetch(`array::unique(*[_type == "product"].category)`)
+}
+
+export default async function Home() {
+  const [products, categories] = await Promise.all([getProducts(), getCategories()])
+
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -17,7 +38,7 @@ export default function Home() {
         {/* Services Overview */}
         <Service />
         {/* Featured Shop Items */}
-        <Shop/>
+        <Shop initialProducts={products} initialCategories={categories}/>
         {/* Testimonials Section 
         <Testimonials />
         */}
