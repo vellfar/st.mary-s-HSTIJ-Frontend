@@ -1,0 +1,150 @@
+'use client'
+
+import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
+import { Badge } from "./ui/badge"
+import { Button } from "./ui/button"
+import { motion, AnimatePresence } from 'framer-motion'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import Link from 'next/link'
+
+const images = [
+  '/herobackground1.jpg',
+  '/heroback2.jpg',
+  '/heroback3.jpg'
+]
+
+export default function Hero() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+
+  const nextImage = useCallback(() => {
+    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length)
+  }, [])
+
+  const prevImage = useCallback(() => {
+    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length)
+  }, [])
+
+  useEffect(() => {
+    const interval = setInterval(nextImage, 5000)
+    return () => clearInterval(interval)
+  }, [nextImage])
+
+  return (
+    <section className="relative bg-gray-100 text-gray-800 w-full min-h-screen flex items-center overflow-hidden">
+      <AnimatePresence initial={false}>
+        <motion.div
+          key={currentImageIndex}
+          className="absolute inset-0 z-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <Image
+            src={images[currentImageIndex]}
+            alt={`Hero background ${currentImageIndex + 1}`}
+            layout="fill"
+            objectFit="cover"
+            priority
+          />
+        </motion.div>
+      </AnimatePresence>
+      
+      <div className="absolute inset-0 bg-black bg-opacity-50" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <Badge className="mb-4 bg-blue-600 text-white">Innovate with Vellfar</Badge>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-white">
+              Empowering Business Automation
+            </h1>
+            <p className="text-lg mb-8 max-w-2xl text-gray-200">
+              Transforming industries with cutting-edge technology solutions. Experience the future with Vellfar's innovative products and services.
+            </p>
+            <div className="space-x-4">
+              <Link href="/services">
+                <Button size="lg" variant="default" className="bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
+                  Explore Services
+                </Button>
+              </Link>
+              <Link href="/shop">
+                <Button size="lg" variant="outline" className="text-blue-600 border-white hover:bg-gray-100 hover:text-blue-600 transition-colors duration-300">
+                  View Products
+                </Button>
+              </Link>
+            </div>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="hidden lg:block"
+          >
+            <div className="relative h-[450px] overflow-hidden rounded-2xl shadow-2xl group bg-white">
+              <Image
+                src="/heropc2.jpg"
+                alt="Featured Product"
+                layout="fill"
+                objectFit="cover"
+                className="rounded-2xl w-full h-full transition-transform duration-300 ease-in-out group-hover:scale-105"
+              />
+            </div>
+          </motion.div>
+
+        </div>
+      </div>
+
+      {/*
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.4 }}
+        className="absolute bottom-8 left-0 right-0 z-20"
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 text-center">
+            {[
+              { label: 'Global Presence', value: '190+ Countries' },
+              { label: 'Innovation Centers', value: '50+' },
+              { label: 'Patents Filed', value: '10,000+' },
+              { label: 'Employees Worldwide', value: '250,000+' },
+            ].map((stat, index) => (
+              <motion.div
+                key={index}
+                className="bg-white bg-opacity-90 p-4 rounded-lg shadow-md"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <p className="text-2xl md:text-3xl font-bold text-blue-600">{stat.value}</p>
+                <p className="text-sm text-gray-600">{stat.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </motion.div>
+      */}
+
+      <button
+        onClick={prevImage}
+        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full z-30 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        aria-label="Previous image"
+      >
+        <ChevronLeft className="w-6 h-6 text-blue-600" />
+      </button>
+      <button
+        onClick={nextImage}
+        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full z-30 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        aria-label="Next image"
+      >
+        <ChevronRight className="w-6 h-6 text-blue-600" />
+      </button>
+    </section>
+  )
+}
+
