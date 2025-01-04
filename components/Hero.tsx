@@ -54,27 +54,28 @@ export default function Hero() {
       <div className="absolute inset-0 bg-black bg-opacity-50" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="flex flex-col lg:flex-row items-center justify-between">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
+            className="w-full lg:w-1/2 mb-8 lg:mb-0"
           >
             <Badge className="mb-4 bg-blue-600 text-white">Innovate with Vellfar</Badge>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-white">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold mb-4 text-white">
               Empowering Business Automation
             </h1>
-            <p className="text-lg mb-8 max-w-2xl text-gray-200">
+            <p className="text-base sm:text-lg mb-6 max-w-2xl text-gray-200">
               Transforming industries with cutting-edge technology solutions. Experience the future with Vellfar's innovative products and services.
             </p>
-            <div className="space-x-4">
+            <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
               <Link href="/services">
-                <Button size="lg" variant="default" className="bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
+                <Button size="lg" variant="default" className="w-full sm:w-auto bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
                   Explore Services
                 </Button>
               </Link>
               <Link href="/shop">
-                <Button size="lg" variant="outline" className="text-blue-600 border-white hover:bg-gray-100 hover:text-blue-600 transition-colors duration-300">
+                <Button size="lg" variant="outline" className="w-full sm:w-auto text-blue-600 border-white hover:bg-white transition-colors duration-300">
                   View Products
                 </Button>
               </Link>
@@ -84,7 +85,7 @@ export default function Hero() {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="hidden lg:block"
+            className="hidden lg:block w-full lg:w-1/2 mt-8 ml-2 lg:mt-0"
           >
             <div className="relative h-[450px] overflow-hidden rounded-2xl shadow-2xl group bg-white">
               <Image
@@ -96,53 +97,22 @@ export default function Hero() {
               />
             </div>
           </motion.div>
-
         </div>
       </div>
 
-      {/*
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.4 }}
-        className="absolute bottom-8 left-0 right-0 z-20"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 md:gap-8 text-center">
-            {[
-              { label: 'Global Presence', value: '190+ Countries' },
-              { label: 'Innovation Centers', value: '50+' },
-              { label: 'Patents Filed', value: '10,000+' },
-              { label: 'Employees Worldwide', value: '250,000+' },
-            ].map((stat, index) => (
-              <motion.div
-                key={index}
-                className="bg-white bg-opacity-90 p-4 rounded-lg shadow-md"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <p className="text-2xl md:text-3xl font-bold text-blue-600">{stat.value}</p>
-                <p className="text-sm text-gray-600">{stat.label}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.div>
-      */}
-
       <button
         onClick={prevImage}
-        className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full z-30 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-1 sm:p-2 rounded-full z-30 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
         aria-label="Previous image"
       >
-        <ChevronLeft className="w-6 h-6 text-blue-600" />
+        <ChevronLeft className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
       </button>
       <button
         onClick={nextImage}
-        className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full z-30 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
+        className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-1 sm:p-2 rounded-full z-30 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-opacity-50"
         aria-label="Next image"
       >
-        <ChevronRight className="w-6 h-6 text-blue-600" />
+        <ChevronRight className="w-4 h-4 sm:w-6 sm:h-6 text-blue-600" />
       </button>
     </section>
   )
