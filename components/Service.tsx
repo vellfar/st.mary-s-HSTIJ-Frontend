@@ -48,7 +48,7 @@ export default function Service() {
           {services.map((service, index) => (
             <motion.div key={index} variants={animationVariants}>
               <Card 
-                className="overflow-hidden transition-all duration-300 flex flex-col w-full min-h-[400px]"  // Ensure minimum height
+                className="overflow-hidden transition-all duration-300 flex flex-col justify-between w-full min-h-[400px]" // Ensure consistent size
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
@@ -68,10 +68,11 @@ export default function Service() {
                 <CardHeader>
                   <CardTitle className="text-lg font-bold text-gray-900">{service.title}</CardTitle>
                 </CardHeader>
-                <CardContent>
-                  <p className="text-gray-600 flex-grow">{service.description}</p>
+                <CardContent className="flex-grow">
+                  <p className="text-gray-600 line-clamp-3">{service.description}</p>
                 </CardContent>
               </Card>
+
             </motion.div>
           ))}
         </motion.div>

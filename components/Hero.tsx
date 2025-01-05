@@ -31,7 +31,7 @@ export default function Hero() {
   }, [nextImage])
 
   return (
-    <section className="relative bg-gray-100 text-gray-800 w-full min-h-screen flex items-center overflow-hidden">
+    <section className="relative bg-gray-100 text-gray-800 w-full min-h-screen sm:min-h-[90vh] flex items-center overflow-hidden">
       <AnimatePresence initial={false}>
         <motion.div
           key={currentImageIndex}
