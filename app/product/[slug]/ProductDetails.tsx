@@ -93,7 +93,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
 
-          <div className="space-y-2">
+          <div className="space-y-2 px-8">
 
             <div className="relative aspect-square overflow-hidden rounded-lg">
               {product.images && product.images.length > 0 ? (
@@ -153,7 +153,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
 
 
 
-          <div className="space-y-6">
+          <div className="space-y-6 px-3">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
               <p className="text-lg text-gray-500 mt-2">{product.category}</p>
