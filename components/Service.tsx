@@ -1,16 +1,16 @@
-'use client'
+"use client"
 
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Cloud,  Code, Network, Users, Computer, LaptopMinimal, Laptop } from 'lucide-react'
-import { Card, CardContent,  CardHeader, CardTitle } from "./ui/card"
+import { Cloud, Code, Network, Users, Computer, LaptopMinimal, Laptop } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from "./ui/card"
 import { Button } from "./ui/button"
 import Link from 'next/link'
 
 const services = [
   { title: 'ICT Equipment & Accessories', description: 'Sale and Supply of ICT Equipments and Accessories', icon: Laptop, image: '/Itsupply2.jpg' },
-  { title: 'Computer Systems & Tech Support', description: 'Computer Systems Installation, Maintenance & Servicing', icon: Computer, image: '/Itsupply.jpg' },
+  { title: 'Computer Systems & Tech Support', description: 'Computer Systems Installation & Maintenance', icon: Computer, image: '/Itsupply.jpg' },
   { title: 'Consumer Electronics & IOT', description: 'Sale and Supply of Consumer Electronics & IOT Solutions', icon: LaptopMinimal, image: '/consele.jpg' },
   { title: 'Software Systems', description: 'Custom Software Solutions & Enterprise Systems', icon: Code, image: '/softdev.jpg' },
   { title: 'Network Infrastructures', description: 'Computer Networks Design, Installation & Maintenance', icon: Network, image: '/net.jpg' },
@@ -27,7 +27,7 @@ export default function Service() {
 
   return (
     <section className="bg-gradient-to-b from-gray-50 to-white w-full py-15 md:py-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-16">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -43,12 +43,12 @@ export default function Service() {
           initial="hidden"
           animate="visible"
           variants={animationVariants}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {services.map((service, index) => (
             <motion.div key={index} variants={animationVariants}>
               <Card 
-                className="overflow-hidden transition-all duration-300 hover:shadow-xl"
+                className="overflow-hidden transition-all duration-300 flex flex-col w-full min-h-[400px]"  // Ensure minimum height
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
@@ -59,16 +59,17 @@ export default function Service() {
                     layout="fill"
                     objectFit="cover"
                     loading="lazy"
+                    className="absolute top-0 left-0 w-full h-full"
                   />
                   <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
                     {service.icon ? <service.icon className="h-16 w-16 text-white" /> : <Cloud className="h-16 w-16 text-white" />}
                   </div>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900">{service.title}</CardTitle>
+                  <CardTitle className="text-lg font-bold text-gray-900">{service.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">{service.description}</p>
+                  <p className="text-gray-600 flex-grow">{service.description}</p>
                 </CardContent>
               </Card>
             </motion.div>

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Star, ShoppingCart, Heart, Share2, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Star, ShoppingCart, Heart, Share2, ChevronLeft, ChevronRight, Phone } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
@@ -89,9 +89,12 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
   return (
     <div className="bg-gray-50 min-h-screen">
       <Header />
-      <main className="container mx-auto py-16 px-4 sm:px-6 lg:px-8">
+      <main className="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <div className="space-y-4">
+
+
+          <div className="space-y-2">
+
             <div className="relative aspect-square overflow-hidden rounded-lg">
               {product.images && product.images.length > 0 ? (
                 <Image
@@ -99,7 +102,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                   alt={product.name}
                   layout="fill"
                   objectFit="cover"
-                  className="w-full h-full object-center object-cover"
+                  className="absolute top-0 left-0 w-full h-full"
                 />
               ) : (
                 <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -127,8 +130,9 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
                 </>
               )}
             </div>
+
             {product.images && product.images.length > 1 && (
-              <div className="flex space-x-2 overflow-x-auto py-2">
+              <div className="flex space-x-2 overflow-x-auto py-2 px-2">
                 {product.images.map((image, index) => (
                   <Image
                     key={index}
@@ -145,23 +149,20 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
               </div>
             )}
           </div>
+
+
+
+
           <div className="space-y-6">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
               <p className="text-lg text-gray-500 mt-2">{product.category}</p>
             </div>
-            <div className="flex items-center space-x-2">
-              {[...Array(5)].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`h-5 w-5 ${
-                    i < product.rating ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                  }`}
-                />
-              ))}
-              <span className="text-sm text-gray-500">({product.rating} out of 5 stars)</span>
+            <div className="flex items-center space-x-2 text-yellow-400">
+              <Phone />
+              <span className="text-sm text-gray-500">0760174206</span>
             </div>
-            <p className="text-4xl font-bold text-gray-900">UGX {(product.price)}</p>
+            <p className="text-3xl font-bold text-gray-500">UGX <span className='text-yellow-400'>{product.price.toLocaleString()}</span></p>
             {product.isNew && (
               <Badge className="bg-blue-500 text-white">New</Badge>
             )}
@@ -169,7 +170,7 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
             
             <Link href="/contact">
                 <Button className="w-full bg-blue-600 hover:bg-blue-900">
-                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    <Phone className="mr-2 h-4 w-4" />
                     Contact Us
                 </Button>
             </Link>

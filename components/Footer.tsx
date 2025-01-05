@@ -78,9 +78,8 @@ const Footer = () => {
             <Image
               src="/v-logo-c.png"
               alt="Vellfar Logo"
-              width={150}
-              height={40}
-              className="h-8"
+              width={100}
+              height={30}
             />
             <p className="text-gray-400 text-base">
               Empowering businesses with cutting-edge technology solutions for a digital future.
