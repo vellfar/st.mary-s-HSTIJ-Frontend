@@ -161,6 +161,23 @@ export default function ShopPageClient({ initialProducts, initialCategories }: S
                 </SelectContent>
               </Select>
             </div>
+            <div className='hidden md:block lg:block mt-5 space-y-4'>
+            <h3 className="font-semibold mb-2 text-gray-700">THE V.TECH SHOP💻</h3>
+              <Image
+              src="/bannertec2.jpg"
+              alt='ad'
+              width={150}
+              height={200}
+              className='w-full h-full rounded-md'
+              />
+              <Image
+              src="/bannertec.jpg"
+              alt='ad'
+              width={150}
+              height={200}
+              className='w-full h-full rounded-md'
+              />
+            </div>
           </motion.div>
           <div className="lg:w-3/4">
             <div className="flex justify-between items-center mb-6">
@@ -251,6 +268,15 @@ export default function ShopPageClient({ initialProducts, initialCategories }: S
               </Button>
             </div>
           </div>
+        </div> 
+        <div className='md:hidden lg:hidden mt-5 space-y-4'>
+              <Image
+              src="/bannertec.jpg"
+              alt='ad'
+              width={150}
+              height={200}
+              className='w-full h-full rounded-md'
+              />
         </div>
       </div>
       <FooterGen />
