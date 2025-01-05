@@ -66,7 +66,7 @@ export default function Service() {
                   </div>
                 </div>
                 <CardHeader>
-                  <CardTitle className="text-lg font-bold text-gray-900">{service.title}</CardTitle>
+                  <CardTitle className="text-md font-bold text-gray-900">{service.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="flex-grow">
                   <p className="text-gray-600 line-clamp-3">{service.description}</p>
