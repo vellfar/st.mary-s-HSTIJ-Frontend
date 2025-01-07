@@ -102,7 +102,7 @@ export default function Shop({ initialProducts, initialCategories }: ShopSection
           ))}
           
         </motion.div>
-        <Link href="/shop" className='flex mt-10 justify-center items-center align-middle'>
+        <Link href="/shop" className='flex mt-12 justify-center items-center align-middle'>
             <Button size="lg" className="bg-blue-600 text-white hover:bg-blue-700 transition-colors duration-300">
               All Products
             </Button>
