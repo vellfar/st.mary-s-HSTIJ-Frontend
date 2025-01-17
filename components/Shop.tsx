@@ -92,8 +92,10 @@ export default function Shop({ initialProducts, initialCategories }: ShopSection
                     <div>
                       <CardTitle className="text-lg md:text-xl font-semibold text-gray-900 mb-2">{product.name}</CardTitle>
                       <CardDescription className="md:flex md:items-center md:justify-between mb-4">
+                      {/* 
                       <p className='text-lg text-gray-500 font-bold'>UGX <span className='text-yellow-400'>{product.price.toLocaleString()}</span></p>
-                      <p className="text-sm">{product.category}</p>
+                      */}
+                      <p className="text-sm text-yellow-400">{product.category}</p>
                       </CardDescription>
                     </div>
                   </div>

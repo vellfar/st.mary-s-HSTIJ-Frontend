@@ -121,6 +121,7 @@ export default function ShopPageClient({ initialProducts, initialCategories }: S
                 ))}
               </div>
             </div>
+            {/* 
             <div className="mb-6">
               <h3 className="font-semibold mb-2 text-gray-700">Price Range</h3>
               <Slider
@@ -134,6 +135,7 @@ export default function ShopPageClient({ initialProducts, initialCategories }: S
                 <span>UGX {priceRange[1].toLocaleString()}</span>
               </div>
             </div>
+            */}
             <div className="mb-6">
               <h3 className="font-semibold mb-2 text-gray-700">Product Status</h3>
               <div className="flex items-center">
@@ -238,8 +240,10 @@ export default function ShopPageClient({ initialProducts, initialCategories }: S
                           <CardTitle className="text-md line-clamp-2">{product.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
+                          {/* 
                           <p className="font-semibold text-lg mb-1 text-gray-500">UGX <span className='text-yellow-400'>{product.price.toLocaleString()}</span></p>
-                          <p className="text-sm text-gray-500">{product.category}</p>
+                          */}
+                          <p className="text-sm text-yellow-400">{product.category}</p>
                         </CardContent>
                       </Link>
                     </Card>
