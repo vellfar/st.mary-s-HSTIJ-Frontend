@@ -240,10 +240,10 @@ export default function ShopPageClient({ initialProducts, initialCategories }: S
                           <CardTitle className="text-md line-clamp-2">{product.name}</CardTitle>
                         </CardHeader>
                         <CardContent>
-                          {/* 
+                          
                           <p className="font-semibold text-lg mb-1 text-gray-500">UGX <span className='text-yellow-400'>{product.price.toLocaleString()}</span></p>
-                          */}
-                          <p className="text-sm text-yellow-400">{product.category}</p>
+                          
+                          <p className="text-sm text-gray-500">{product.category}</p>
                         </CardContent>
                       </Link>
                     </Card>

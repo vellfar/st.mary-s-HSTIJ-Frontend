@@ -162,9 +162,9 @@ export default function ProductDetails({ product, relatedProducts }: ProductDeta
               <Phone />
               <span className="text-sm text-gray-500">0760174206</span>
             </div>
-            {/* 
+            
             <p className="text-3xl font-bold text-gray-500">UGX <span className='text-yellow-400'>{product.price.toLocaleString()}</span></p>
-            */}
+            
             {product.isNew && (
               <Badge className="bg-blue-500 text-white">New</Badge>
             )}
