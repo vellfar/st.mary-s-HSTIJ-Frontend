@@ -1,26 +1,28 @@
-"use client";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
-import { Menu, LogOut, Badge } from 'lucide-react';
-import { useState, useEffect } from "react";
-import { Navigation } from "./Navbar";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import type { SiteSettings } from '@/types/sanity'
-import { getSiteSettings } from '@/lib/sanity'
+'use client'
+
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet"
+import { Menu, LogOut, Badge } from 'lucide-react'
+import { useState } from "react"
+import { Navigation } from "./Navbar"
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [settings, setSettings] = useState<SiteSettings | null>(null)
-  useEffect(() => {
-    getSiteSettings().then(data => setSettings(data[0]))
-  }, [])
   return (
     <header className="sticky top-0 z-50 px-4 lg:px-6 h-14 flex items-center justify-between bg-white shadow-sm">
       <Link className="flex items-center justify-center" href="/">
-        <span className="text-lg font-semibold text-primary">{settings?.siteTitle || "ST. Mary's HSTIJ"}</span>
+        <span className="text-lg font-semibold text-primary">ST. Mary's HSTIJ</span>
       </Link>
       <div className="lg:hidden">
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -35,11 +37,7 @@ export default function Header() {
               <VisuallyHidden>Navigation Menu</VisuallyHidden>
             </SheetTitle>
             <nav className="flex flex-col gap-4">
-              {settings?.navbarLinks?.map((link: any) => (
-                <Link key={link.href} href={link.href} className="text-base font-medium text-gray-900 hover:text-red-800 transition-colors">
-                  {link.label}
-                </Link>
-              ))}
+              <Navigation isMobile={true} />
             </nav>
           </SheetContent>
         </Sheet>
