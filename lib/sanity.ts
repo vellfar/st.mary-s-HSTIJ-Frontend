@@ -1,19 +1,65 @@
+
 import { createClient } from 'next-sanity'
 import imageUrlBuilder from '@sanity/image-url'
+import type { SanityDocument } from 'next-sanity'
+import type { About, Admissions, Faculty, Gallery, News, Partner, Program, Success, Hero, SiteSettings, ContactSubmission } from '../types/sanity'
 
 export const client = createClient({
-  projectId: "epzg1e40",
-  dataset: "production",
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   apiVersion: '2023-05-03', // Use the latest API version
   useCdn: process.env.NODE_ENV === 'production',
-  token: "skfGJf65aKnBBJYvRZeCfi5C7QYIkpR7yuqJxNyEPhjFOrdz8Oc0uramQ0T9dxdlG1odJAsR8lYGf9mRQ8K7MyzbllvLrHUcdTxVGplfukdYe3eiRFiwRRBNydBsi113ZVEWTMweslZ6NomXfC23Al8738CrAyRywTvf365Z641Ph0pPPLUw",
 })
 
 const builder = imageUrlBuilder(client)
-
 export function urlFor(source: any) {
   return builder.image(source)
 }
+
+// Efficient GROQ fetchers
+export async function getAbout(): Promise<About[]> {
+  return client.fetch(`*[_type == "about"]{_id, title, content, image{asset->{url}}} | order(_createdAt desc)`)
+}
+export async function getAdmissions(): Promise<Admissions[]> {
+  return client.fetch(`*[_type == "admissions"]{_id, title, requirements, process, contact} | order(_createdAt desc)`)
+}
+export async function getFaculty(): Promise<Faculty[]> {
+  return client.fetch(`*[_type == "faculty"]{_id, name, role, bio, photo{asset->{url}}, email, phone} | order(_createdAt desc)`)
+}
+export async function getGallery(): Promise<Gallery[]> {
+  return client.fetch(`*[_type == "gallery"]{_id, title, images[]{asset->{url}}} | order(_createdAt desc)`)
+}
+export async function getNews(): Promise<News[]> {
+  return client.fetch(`*[_type == "news"]{_id, title, date, content, image{asset->{url}}} | order(date desc)`)
+}
+export async function getPartners(): Promise<Partner[]> {
+  return client.fetch(`*[_type == "partners"]{_id, name, logo{asset->{url}}, website} | order(_createdAt desc)`)
+}
+export async function getPrograms(): Promise<Program[]> {
+  return client.fetch(`*[_type == "programs"]{_id, id, name, title, subtitle, duration, intake, nextIntake, description, highlights, image{asset->{url}}, color} | order(_createdAt desc)`)
+}
+export async function getSuccessStories(): Promise<Success[]> {
+  return client.fetch(`*[_type == "success"]{_id, name, program, quote, fullStoryLink, image{asset->{url}}} | order(_createdAt desc)`)
+}
+export async function getHero(): Promise<Hero[]> {
+  return client.fetch(`*[_type == "hero"]{_id, headline, subheadline, backgroundImage{asset->{url}}, ctaText, ctaLink} | order(_createdAt desc)`)
+}
+export async function getSiteSettings(): Promise<SiteSettings[]> {
+  return client.fetch(`*[_type == "siteSettings"]{_id, siteTitle, navbarLinks[]{label, href}, footerText, footerLinks[]{label, href}} | order(_createdAt desc)`)
+}
+export async function getContactSubmissions(): Promise<ContactSubmission[]> {
+  return client.fetch(`*[_type == "contact"]{_id, name, email, phone, message, submittedAt} | order(submittedAt desc)`)
+}
+
+
+// Real-time updates using listen API
+export function listenToType(type: string, cb: (data: any) => void) {
+  return client.listen(`*[_type == "${type}"]`).subscribe(update => {
+    cb(update.result)
+  })
+}
+
+// (useRealtimeType hook moved to useRealtimeType.ts)
 
 export async function getFeaturedProduct() {
   const query = `*[_type == "product" && featured == true][0] {

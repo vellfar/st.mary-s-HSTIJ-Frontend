@@ -1,206 +1,173 @@
-'use client';
 
-import { useState } from 'react'
-import { motion } from 'framer-motion'
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Mail, Phone, MapPin, Linkedin, Send, Instagram, X } from 'lucide-react'
+"use client"
+import Image from "next/image"
 import Header from '@/components/header'
 import FooterGen from '@/components/footer-general'
-import { submitContactForm } from './actions'
+import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react'
+import Link from "next/link"
+import { useState } from "react"
+import { submitContactForm } from "./actions"
 
-import dynamic from 'next/dynamic'
+export default function ContactPage() {
+  const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" })
+  const [loading, setLoading] = useState(false)
+  const [success, setSuccess] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
-const MapComponent = dynamic(() => import('@/components/MapComponent'), { 
-  loading: () => <p>Loading map...</p>,
-  ssr: false 
-})
-
-const schema = yup.object({
-  name: yup.string().required('Name is required'),
-  email: yup.string().email('Invalid email').required('Email is required'),
-  phone: yup.string().matches(/^[0-9]+$/, 'Must be only digits').required('Phone number is required').min(10, 'Must be exactly 10 digits').max(10, 'Must be exactly 10 digits'),
-  message: yup.string().required('Message is required').min(10, 'Message must be at least 10 characters'),
-}).required();
-
-
-type FormData = yup.InferType<typeof schema>
-
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 }
-}
-
-export default function Contact() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-    resolver: yupResolver(schema)
-  })
-
-  const onSubmit = async (data: FormData) => {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setLoading(true)
+    setSuccess(null)
+    setError(null)
     try {
-      await submitContactForm(data)
-      setIsSubmitted(true)
-    } catch (error) {
-      console.error('Error submitting form:', error)
+      const res = await submitContactForm(form)
+      if (res.success) {
+        setSuccess("Thank you for contacting us! We'll get back to you soon.")
+        setForm({ name: "", email: "", phone: "", message: "" })
+      } else {
+        setError("Something went wrong. Please try again.")
+      }
+    } catch (err: any) {
+      setError(err.message || "Failed to submit. Please try again.")
+    } finally {
+      setLoading(false)
     }
   }
 
-  const faqs = [
-    { question: 'What services does Vellfar offer?', answer: 'Computer Systems, ICT Equipment & Accessories, Software Systems, Network Infrastructures, Consumer Electronics & IOT, Tech Support, IT Consulting, etc' },
-    { question: 'How can I request a quote?', answer: 'You can request a quote by filling out the contact form on this page or by emailing us directly at vellfarenterprises@gmail.com.' },
-    { question: 'What industries does Vellfar serve?', answer: 'Vellfar serves a diverse range of industries including finance, healthcare, education, retail, and government sectors.' },
-    { question: 'How quickly can I expect a response?', answer: 'We strive to respond to all inquiries within 24 business hours.' },
-  ]
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
       <Header />
-      <div className="container mx-auto py-10 px-4 sm:px-6 lg:px-8">
-        <div className='text-center'>
-            <motion.h1 
-              className="text-3xl md:text-4xl font-bold mb-4 text-blue-700"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              Contact Vellfar
-            </motion.h1>
-            <motion.p 
-              className="text-lg text-gray-600 mb-12"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              Let's discuss how we can drive innovation in your institution.
-            </motion.p>
-        </div>
 
-        {isSubmitted ? ( 
-          <div className="grid grid-cols-1 gap-12">
-            <motion.div {...fadeInUp}>
-              <Card>
-                <CardContent>
-                    <div className="text-center py-8">
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: 'spring', stiffness: 260, damping: 20 }}
-                      >
-                        <Send className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                      </motion.div>
-                      <h2 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h2>
-                      <p className="text-gray-600">Your message has been sent successfully. Our Representative will reach out to you soon.</p>
+      {/* Contact Information & Form Section */}
+      <section className="py-20 bg-white">
+        <div className="container mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Contact Information */}
+            <div className="space-y-12">
+              <div>
+                <h2 className="text-4xl md:text-5xl font-serif font-light text-gray-900 mb-6">
+                  Contact Details
+                </h2>
+                <div className="w-24 h-1 bg-red-900 mb-8"></div>
+                <p className="text-lg text-gray-700 leading-relaxed mb-8">
+                  Our team is ready to assist you with admissions, programs, or general inquiries.
+                </p>
+              </div>
+
+              <Card className="shadow-xl border-0 bg-gradient-to-br from-gray-50 to-white p-8">
+                <CardContent className="p-0 space-y-6">
+                  <div className="flex items-start gap-4">
+                    <MapPin className="h-6 w-6 text-red-700 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-medium text-gray-900 text-lg">Our Location</h4>
+                      <p className="text-gray-700">Gudele Road, Juba, South Sudan</p>
                     </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <Phone className="h-6 w-6 text-red-700 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-medium text-gray-900 text-lg">Phone Numbers</h4>
+                      <p className="text-gray-700">+211 912 345 678 (Admissions)</p>
+                      <p className="text-gray-700">+211 912 876 543 (General Inquiries)</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <Mail className="h-6 w-6 text-red-700 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-medium text-gray-900 text-lg">Email Addresses</h4>
+                      <p className="text-gray-700">
+                        <Link href="mailto:admissions@stmaryshealthjuba.edu" className="hover:underline">admissions@stmaryshealthjuba.edu</Link>
+                      </p>
+                      <p className="text-gray-700">
+                        <Link href="mailto:info@stmaryshealthjuba.edu" className="hover:underline">info@stmaryshealthjuba.edu</Link>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <Clock className="h-6 w-6 text-red-700 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-medium text-gray-900 text-lg">Office Hours</h4>
+                      <p className="text-gray-700">Monday - Friday: 8:00 AM - 5:00 PM</p>
+                      <p className="text-gray-700">Saturday: 9:00 AM - 1:00 PM</p>
+                      <p className="text-gray-700">Sunday: Closed</p>
+                    </div>
+                  </div>
                 </CardContent>
               </Card>
-            </motion.div>
-          </div>
-        ) : (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">     
-          <motion.div {...fadeInUp}>
-            <Card>
-              <CardHeader>
-                <CardTitle>Send Us a Message</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            </div>
+
+            {/* Contact Form */}
+            <div>
+              <h2 className="text-4xl md:text-5xl font-serif font-light text-gray-900 mb-6">
+                Send Us a Message
+              </h2>
+              <div className="w-24 h-1 bg-red-900 mb-8"></div>
+              <Card className="shadow-xl border-0 bg-gradient-to-br from-gray-50 to-white p-8">
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
-                    <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-900">Name / Organization</label>
-                    <Input id="name" {...register('name')} className={errors.name ? 'border-red-500' : ''} />
-                    {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name.message}</p>}
+                    <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                    <Input id="name" type="text" name="name" value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} placeholder="John Doe" className="rounded-none border-gray-300 focus:border-red-700 focus:ring-red-700" required />
                   </div>
                   <div>
-                    <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900">Email</label>
-                    <Input id="email" type="email" {...register('email')} className={errors.email ? 'border-red-500' : ''} />
-                    {errors.email && <p className="mt-1 text-sm text-red-500">{errors.email.message}</p>}
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Your Email</label>
+                    <Input id="email" type="email" name="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))} placeholder="john.doe@example.com" className="rounded-none border-gray-300 focus:border-red-700 focus:ring-red-700" required />
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block mb-2 text-sm font-medium text-gray-900">Phone</label>
-                    <Input id="phone" {...register('phone')} className={errors.phone ? 'border-red-500' : ''} />
-                    {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone.message}</p>}
+                    <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                    <Input id="phone" type="tel" name="phone" value={form.phone} onChange={e => setForm(f => ({ ...f, phone: e.target.value }))} placeholder="+211 912 345 678" className="rounded-none border-gray-300 focus:border-red-700 focus:ring-red-700" required />
                   </div>
                   <div>
-                    <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900">Message</label>
-                    <Textarea id="message" {...register('message')} rows={8} className={errors.message ? 'border-red-500' : ''} />
-                    {errors.message && <p className="mt-1 text-sm text-red-500">{errors.message.message}</p>}
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">Your Message</label>
+                    <Textarea id="message" name="message" rows={5} value={form.message} onChange={e => setForm(f => ({ ...f, message: e.target.value }))} placeholder="Type your message here..." className="rounded-none border-gray-300 focus:border-red-700 focus:ring-red-700" required />
                   </div>
-                  <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-900">Send Message</Button>
+                  <Button type="submit" size="lg" className="w-full bg-red-900 text-white px-10 py-4 text-lg font-medium rounded-none hover:bg-red-800 transition-colors" disabled={loading}>
+                    {loading ? "Sending..." : "Send Message"}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                  {success && <div className="text-green-700 text-center font-medium mt-2">{success}</div>}
+                  {error && <div className="text-red-700 text-center font-medium mt-2">{error}</div>}
                 </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-          
-          <div className="space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
-              <Card>
-                <CardHeader>
-                  <CardTitle>Our Location</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="bg-gray-200 h-64 rounded-lg mb-4">
-                    <MapComponent />
-                  </div>
-                  <p className="flex items-center text-gray-600">
-                    <MapPin className="mr-2" />
-                    Kampala, Plot 71 Nkrumah Road, SAL Building SF-14
-                  </p>
-                </CardContent>
               </Card>
-            </motion.div>
-            
-            <motion.div {...fadeInUp} transition={{ delay: 0.3 }}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Quick Contact</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-2">
-                  <p className="flex items-center text-gray-600"><Phone className="mr-2" /> +256760174206 / +256753507887</p>
-                  <p className="flex items-center text-gray-600"><Mail className="mr-2" /> vellfarenterprises@gmail.com</p>
-                  <div className="flex space-x-4 mt-4">
-                    <a href="https://www.linkedin.com/in/vellfar-tech" className="text-gray-400 hover:text-blue-700"><Linkedin /></a>
-                    <a href="https://x.com/vellfar_uganda" className="text-gray-400 hover:text-blue-400"><X /></a>
-                    <a href="https://www.instagram.com/vellfar_uganda" className="text-gray-400 hover:text-blue-700"><Instagram /></a>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+            </div>
           </div>
-          
         </div>
-      )}
-        
-        <motion.div {...fadeInUp} transition={{ delay: 0.4 }} className='w-full py-4 lg:py-16'>
-          <Card>
-            <CardHeader>
-              <CardTitle>Frequently Asked Questions</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <Accordion type="single" collapsible>
-                {faqs.map((faq, index) => (
-                  <AccordionItem value={`item-${index}`} key={index}>
-                    <AccordionTrigger>{faq.question}</AccordionTrigger>
-                    <AccordionContent>{faq.answer}</AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </CardContent>
+      </section>
+
+      {/* Map Section 
+      <section className="py-20 bg-gray-100">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-serif font-light text-gray-900 mb-6">
+              Find Us on the Map
+            </h2>
+            <div className="w-24 h-1 bg-red-900 mx-auto mb-8"></div>
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+              Visit our campus located conveniently on Gudele Road in Juba.
+            </p>
+          </div>
+          <Card className="shadow-xl border-0 overflow-hidden rounded-sm">
+            <div className="relative w-full h-[400px] md:h-[500px]">
+              <Image
+                src="/contact/juba-map.png"
+                alt="Map of St. Mary's Health Science Training Institute, Juba"
+                layout="fill"
+                objectFit="cover"
+                className="rounded-sm"
+              />
+              <div className="absolute inset-0 bg-black/20 flex items-center justify-center text-white text-2xl font-bold">
+                {/* This text is for placeholder only, a real map would be embedded 
+                <span className="sr-only">Map of St. Mary's Health Science Training Institute, Juba</span>
+              </div>
+            </div>
           </Card>
-        </motion.div>
-      </div>
+        </div>
+      </section> */}
+
       <FooterGen />
     </div>
   )
 }
-

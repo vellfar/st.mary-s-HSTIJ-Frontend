@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import * as React from "react"
 import Link from "next/link"
@@ -15,12 +15,9 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 
-
-
 export function Navigation({ isMobile = false }: { isMobile?: boolean }) {
-  
-  const pathname = usePathname()
 
+  const pathname = usePathname()
 
   const MobileLink = ({ href, children, ...props }: React.ComponentPropsWithoutRef<typeof Link>) => {
     return (
@@ -39,9 +36,13 @@ export function Navigation({ isMobile = false }: { isMobile?: boolean }) {
     return (
       <div className="flex flex-col space-y-4">
         <MobileLink href="/">Home</MobileLink>
-        <MobileLink href="/shop">Shop</MobileLink>
-        <MobileLink href="/services">Services</MobileLink>
-        <MobileLink href="/blog">Blog</MobileLink>
+        <MobileLink href="/programs">Programs & Courses</MobileLink>
+        <MobileLink href="/admissions">Admissions</MobileLink>
+        <MobileLink href="/faculty">Faculty & Staff</MobileLink>
+        <MobileLink href="/partners">Partners & Accreditations</MobileLink>
+        <MobileLink href="/news">News & Announcements</MobileLink>
+        <MobileLink href="/success">Success Stories</MobileLink>
+        <MobileLink href="/gallery">Gallery</MobileLink>
         <MobileLink href="/about">About</MobileLink>
         <MobileLink href="/contact">Contact Us</MobileLink>
       </div>
@@ -51,7 +52,7 @@ export function Navigation({ isMobile = false }: { isMobile?: boolean }) {
   return (
     <NavigationMenu>
       <NavigationMenuList>
-      <NavigationMenuItem>
+        <NavigationMenuItem>
           <Link href="/" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Home
@@ -60,132 +61,93 @@ export function Navigation({ isMobile = false }: { isMobile?: boolean }) {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Shop</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Programs & Courses</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <Link
                     className="relative flex h-full w-full select-none flex-col justify-end rounded-md bg-cover bg-center p-6 no-underline outline-none focus:shadow-md"
-                    href="/shop"
+                    href="/programs"
                   >
-                    {/* Background Image Layer */}
-                    <div
-                      className="absolute inset-0 rounded-md bg-[url('/tecshop.jpg')] bg-cover bg-center"
-                    />
-
-                    {/* Opacity Overlay */}
+                    <div className="absolute inset-0 rounded-md bg-[url('/blueguys1.jpg')] bg-cover bg-center" />
                     <div className="absolute inset-0 rounded-md bg-black bg-opacity-50" />
-
-                    {/* Content */}
                     <div className="mb-4 mt-2 text-lg font-semibold text-white relative">
-                      Tech Shop
+                      Diploma Programs:
                     </div>
                     <p className="text-xs leading-tight text-white relative">
-                      Office ICT equipment procurement made easier for you.
+                      Nursing, Midwifery, Public Health, Medical Laboratory & More
                     </p>
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/shop" title="Computers">
-                Procure high spec computers for a seemless experience. Buy Now!
+              <ListItem href="/programs" title="Nursing">
+                Comprehensive training in general and community nursing.
               </ListItem>
-              <ListItem href="/shop" title="Printers">
-                Reliable and efficient printers that are easy to maintain.
+              <ListItem href="/programs" title="Midwifery">
+                Focused education on maternal and neonatal care.
               </ListItem>
-              <ListItem href="/shop" title="Accessories">
-                ICT accessories go a long way in easing your daily work. Shop Today!
+              <ListItem href="/programs" title="Public Health">
+                Explore health promotion and disease prevention.
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Services</NavigationMenuTrigger>
+          <NavigationMenuTrigger>Admissions</NavigationMenuTrigger>
           <NavigationMenuContent>
             <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
               <li className="row-span-3">
                 <NavigationMenuLink asChild>
                   <Link
                     className="relative flex h-full w-full select-none flex-col justify-end rounded-md bg-cover bg-center p-6 no-underline outline-none focus:shadow-md"
-                    href="/services"
+                    href="/admissions"
                   >
-                    {/* Background Image Layer */}
-                    <div
-                      className="absolute inset-0 rounded-md bg-[url('/bizsoln.jpg')] bg-cover bg-center"
-                    />
-
-                    {/* Opacity Overlay */}
+                    <div className="absolute inset-0 rounded-md bg-[url('/whiteguys1.jpg')] bg-cover bg-center" />
                     <div className="absolute inset-0 rounded-md bg-black bg-opacity-50" />
-
-                    {/* Content */}
                     <div className="mb-4 mt-2 text-lg font-semibold text-white relative">
-                      Our Services
+                      Admissions:
                     </div>
                     <p className="text-xs leading-tight text-white relative">
-                      Providing cutting-edge Solutions to Your IT Needs.
+                      Learn about our admission requirements and application process.
                     </p>
                   </Link>
                 </NavigationMenuLink>
               </li>
-              <ListItem href="/services" title="Software Development">
-                We design & develop custom business software solutions.
+              <ListItem href="/admissions" title="How to Apply">
+                Step-by-step guide to enrolling at St. Mary's HSTI.
               </ListItem>
-              <ListItem href="/services" title="Computer Systems">
-                We install, maintain & service computer systems.
+              <ListItem href="/admissions" title="Tuition & Fees">
+                Find detailed tuition and financial aid information.
               </ListItem>
-              <ListItem href="/services" title="ICT Equipment">
-                We sell and supply ict equipment & accessories
+              <ListItem href="/admissions" title="Intake Periods">
+                Stay informed about upcoming intake windows.
               </ListItem>
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Blog</NavigationMenuTrigger>
-          <NavigationMenuContent>
-            <ul className="grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
-              <li className="row-span-3">
-                <NavigationMenuLink asChild>
-                  <Link
-                    className="relative flex h-full w-full select-none flex-col justify-end rounded-md bg-cover bg-center p-6 no-underline outline-none focus:shadow-md"
-                    href="/blog"
-                  >
-                    {/* Background Image Layer */}
-                    <div
-                      className="absolute inset-0 rounded-md bg-[url('/blog.jpg')] bg-cover bg-center"
-                    />
-
-                    {/* Opacity Overlay */}
-                    <div className="absolute inset-0 rounded-md bg-black bg-opacity-50" />
-
-                    {/* Content */}
-                    <div className="mb-4 mt-2 text-lg font-semibold text-white relative">
-                      Our Blog
-                    </div>
-                    <p className="text-xs leading-tight text-white relative">
-                      Insights, updates, and inspiration from our world of innovation. Stay informed, stay ahead with Vellfar.
-                    </p>
-                  </Link>
-                </NavigationMenuLink>
-              </li>
-              <ListItem href="/blog" title="Tech Tips">
-                Practical advice for navigating the digital world.
-              </ListItem>
-              <ListItem href="/blog" title="Vellfar News">
-                See how we’re shaping the future, one breakthrough at a time.
-              </ListItem>
-              <ListItem href="/blog" title="Fun Facts">
-                Unveiling the wonders of tech and beyond.
-              </ListItem>
-            </ul>
-          </NavigationMenuContent>
+          <Link href="/faculty" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              Faculty & Staff
+            </NavigationMenuLink>
+          </Link>
         </NavigationMenuItem>
 
         <NavigationMenuItem>
           <Link href="/about" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About
+              About Us
+            </NavigationMenuLink>
+          </Link>
+        </NavigationMenuItem>
+
+        <NavigationMenuItem>
+          <Link href="/news" legacyBehavior passHref>
+            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+              News
             </NavigationMenuLink>
           </Link>
         </NavigationMenuItem>
@@ -227,4 +189,3 @@ const ListItem = React.forwardRef<
   )
 })
 ListItem.displayName = "ListItem"
-

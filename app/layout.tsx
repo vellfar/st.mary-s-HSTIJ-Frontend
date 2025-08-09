@@ -13,8 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vellfar | Vellfar Enterprises Ltd | Vellfar Uganda",
-  description: "Computer Systems, ICT Equipment & Accessories, Software Systems, Network Infrastructures, Consumer Electronics & IOT, Tech Support, IT Consulting",
+  title: "St. Mary’s Health Science Training Institute | Juba, South Sudan",
+  description: "Empowering future healthcare professionals in South Sudan through high-quality training in Nursing, Midwifery, Clinical Health, and Public Health. 100% national exam pass rate. Apply now.",
+  keywords: ["Nursing school Juba, Midwifery training South Sudan, Health Institute Juba, Public Health Diploma, Clinical Health courses, St. Mary’s Institute, Juba medical school"],
+  authors: [{ name: "Vellfar Team" }],
+  viewport: "width=device-width, initial-scale=1",
+    generator: 'vellfar'
 };
 
 export default function RootLayout({
