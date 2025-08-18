@@ -75,6 +75,9 @@ export default function Header() {
             <Link href="https://facebook.com/stmaryshstij">
               <DropdownMenuItem>Facebook</DropdownMenuItem>
             </Link>
+            <Link href="https://linkedin.com/company/stmaryshstij">
+              <DropdownMenuItem>LinkedIn</DropdownMenuItem>
+            </Link>
             <DropdownMenuSeparator />
             <DropdownMenuLabel className="font-normal">
             <Link href="mailto:vellfarenterprises@gmail.com">
