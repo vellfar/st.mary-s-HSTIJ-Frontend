@@ -107,6 +107,20 @@ export default function ContactPage() {
               </h2>
               <div className="w-24 h-1 bg-red-900 mb-8"></div>
               <Card className="shadow-xl border-0 bg-gradient-to-br from-gray-50 to-white p-8">
+                {/* WhatsApp alternative contact button */}
+                <div className="mb-6 text-center">
+                  <a
+                    href={`https://wa.me/211921373000?text=${encodeURIComponent(
+                      `Hello, my name is ${form.name || '[Your Name]'} (${form.phone || '[Your Phone]'}).\n${form.message || '[Your Message]'} `
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-green-500 text-white px-6 py-3 rounded font-semibold shadow hover:bg-green-600 transition-colors"
+                  >
+                    Contact us via WhatsApp
+                  </a>
+                  <div className="text-sm text-gray-600 mt-2">You can use WhatsApp to send your message directly.</div>
+                </div>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
