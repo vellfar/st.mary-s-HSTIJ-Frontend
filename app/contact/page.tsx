@@ -128,7 +128,23 @@ export default function ContactPage() {
                     {loading ? "Sending..." : "Send Message"}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
-                  {success && <div className="text-green-700 text-center font-medium mt-2">{success}</div>}
+                  {success && (
+                    <div className="text-green-700 text-center font-medium mt-2">
+                      {success}
+                      <div className="mt-4">
+                        <a
+                          href={`https://wa.me/211921373000?text=${encodeURIComponent(
+                            `Hello, my name is ${form.name} (${form.phone}).\n${form.message}`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-block bg-green-500 text-white px-6 py-3 rounded font-semibold shadow hover:bg-green-600 transition-colors"
+                        >
+                          Send this message via WhatsApp
+                        </a>
+                      </div>
+                    </div>
+                  )}
                   {error && <div className="text-red-700 text-center font-medium mt-2">{error}</div>}
                 </form>
               </Card>
