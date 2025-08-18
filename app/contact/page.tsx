@@ -71,8 +71,8 @@ export default function ContactPage() {
                     <Phone className="h-6 w-6 text-red-700 flex-shrink-0 mt-1" />
                     <div>
                       <h4 className="font-medium text-gray-900 text-lg">Phone Numbers</h4>
-                      <p className="text-gray-700">+211 912 345 678 (Admissions)</p>
-                      <p className="text-gray-700">+211 912 876 543 (General Inquiries)</p>
+                      <p className="text-gray-700">0925606081 (Admissions)</p>
+                      <p className="text-gray-700">+211921373000 (General Inquiries)</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-4">
@@ -83,7 +83,7 @@ export default function ContactPage() {
                         <Link href="mailto:admissions@stmaryshealthjuba.edu" className="hover:underline">admissions@stmaryshealthjuba.edu</Link>
                       </p>
                       <p className="text-gray-700">
-                        <Link href="mailto:info@stmaryshealthjuba.edu" className="hover:underline">info@stmaryshealthjuba.edu</Link>
+                        <Link href="mailto:info@stmaryshealthjuba.edu" className="hover:underline">stmaryhstij@gmail.com</Link>
                       </p>
                     </div>
                   </div>

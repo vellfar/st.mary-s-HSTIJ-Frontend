@@ -22,10 +22,11 @@ const Footer = () => {
     {
       title: "Programs",
       links: [
-        { name: "Registered Nursing", href: "/programs/nursing" },
-        { name: "Registered Midwifery", href: "/programs/midwifery" },
-        { name: "Clinical Health", href: "/programs/clinical-health" },
-        { name: "Public Health", href: "/programs/public-health" },
+        { name: "Diploma in Nursing Registered", href: "/programs" },
+        { name: "Diploma in Midwifery Registered", href: "/programs" },
+        { name: "Diploma in Clinical Medicine", href: "/programs" },
+        { name: "Diploma in Laboratory Technology", href: "/programs" },
+        { name: "Diploma in Theatre Technology", href: "/programs" },
       ],
     },
     {
@@ -33,7 +34,7 @@ const Footer = () => {
       links: [
         { name: "Apply Now", href: "/admissions" },
         { name: "Admission Requirements", href: "/admissions" },
-        { name: "Key Dates & Deadlines", href: "/admissions#key-dates" },
+       // { name: "Key Dates & Deadlines", href: "/admissions#key-dates" },
       ],
     },
     {
@@ -42,7 +43,7 @@ const Footer = () => {
         { name: "Our Story", href: "/about" },
         { name: "Faculty & Staff", href: "/faculty" },
         { name: "Partners & Accreditations", href: "/partners" },
-        { name: "Success Stories", href: "/success-stories" },
+        { name: "Success Stories", href: "/success" },
         { name: "News & Announcements", href: "/news" },
         { name: "Gallery", href: "/gallery" },
       ],
@@ -50,9 +51,9 @@ const Footer = () => {
     {
       title: "Legal & Support",
       links: [
-        { name: "Privacy Policy", href: "/privacy" },
-        { name: "Terms of Service", href: "/terms" },
-        { name: "Accessibility", href: "/accessibility" },
+        { name: "Privacy Policy", href: "#" },
+        { name: "Terms of Service", href: "#" },
+        { name: "Accessibility", href: "#" },
         { name: "Contact Us", href: "/contact" },
       ],
     },
@@ -200,14 +201,23 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="h-5 w-5 text-red-700" />
-                <Link href="tel:+211912345678" className="hover:underline font-light">
-                  +211 912 345 678
+                <Link href="tel:0925606081" className="hover:underline font-light">
+                  0925606081
+                </Link>
+                <Link href="tel:+211921373000" className="hover:underline font-light">
+                  +211921373000
                 </Link>
               </div>
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-red-700" />
-                <Link href="mailto:info@stmaryshealthjuba.edu" className="hover:underline font-light">
-                  info@stmaryshealthjuba.edu
+                <Link href="mailto:stmaryhstij@gmail.com" className="hover:underline font-light">
+                  stmaryhstij@gmail.com
+                </Link>
+              </div>
+              <div className="flex items-center gap-3">
+                <Mail className="h-5 w-5 text-red-700" />
+                <Link href="mailto:admissions@stmaryshealthjuba.edu" className="hover:underline font-light">
+                  admissions@stmaryshealthjuba.edu
                 </Link>
               </div>
             </div>

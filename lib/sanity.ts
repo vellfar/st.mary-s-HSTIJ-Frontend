@@ -4,11 +4,13 @@ import imageUrlBuilder from '@sanity/image-url'
 import type { SanityDocument } from 'next-sanity'
 import type { About, Admissions, Faculty, Gallery, News, Partner, Program, Success, Hero, SiteSettings, ContactSubmission } from '../types/sanity'
 
+// Single client for both read and write operations
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
-  apiVersion: '2023-05-03', // Use the latest API version
-  useCdn: process.env.NODE_ENV === 'production',
+  apiVersion: '2023-05-03',
+  token: process.env.SANITY_API_TOKEN,
+  useCdn: false,
 })
 
 const builder = imageUrlBuilder(client)

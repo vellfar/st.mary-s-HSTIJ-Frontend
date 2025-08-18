@@ -2,6 +2,7 @@
 
 import { client } from "@/lib/sanity"
 
+
 export async function submitContactForm(data: {
   name: string
   email: string
