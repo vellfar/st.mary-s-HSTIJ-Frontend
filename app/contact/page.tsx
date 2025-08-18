@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Clock, ArrowRight } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock, ArrowRight, MessageCircle } from 'lucide-react'
 import Link from "next/link"
 import { useState } from "react"
 import { submitContactForm } from "./actions"
@@ -109,6 +109,7 @@ export default function ContactPage() {
               <Card className="shadow-xl border-0 bg-gradient-to-br from-gray-50 to-white p-8">
                 {/* WhatsApp alternative contact button */}
                 <div className="mb-6 text-center">
+                  <div className="text-sm text-gray-600 my-2">You can use WhatsApp to send your message directly.</div>
                   <a
                     href={`https://wa.me/211921373000?text=${encodeURIComponent(
                       `Hello, my name is ${form.name || '[Your Name]'} (${form.phone || '[Your Phone]'}).\n${form.message || '[Your Message]'} `
@@ -117,9 +118,13 @@ export default function ContactPage() {
                     rel="noopener noreferrer"
                     className="inline-block bg-green-500 text-white px-6 py-3 rounded font-semibold shadow hover:bg-green-600 transition-colors"
                   >
+                    <MessageCircle className="inline mr-2 h-5 w-5" />
                     Contact us via WhatsApp
                   </a>
-                  <div className="text-sm text-gray-600 mt-2">You can use WhatsApp to send your message directly.</div>
+                  
+                </div>
+                <div className="text-sm text-gray-600 mt-2 text-center">
+                  Or you can fill out the form below:
                 </div>
                 <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
@@ -145,18 +150,6 @@ export default function ContactPage() {
                   {success && (
                     <div className="text-green-700 text-center font-medium mt-2">
                       {success}
-                      <div className="mt-4">
-                        <a
-                          href={`https://wa.me/211921373000?text=${encodeURIComponent(
-                            `Hello, my name is ${form.name} (${form.phone}).\n${form.message}`
-                          )}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-block bg-green-500 text-white px-6 py-3 rounded font-semibold shadow hover:bg-green-600 transition-colors"
-                        >
-                          Send this message via WhatsApp
-                        </a>
-                      </div>
                     </div>
                   )}
                   {error && <div className="text-red-700 text-center font-medium mt-2">{error}</div>}
