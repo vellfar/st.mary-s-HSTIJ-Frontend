@@ -1,12 +1,4 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { client } from '@/lib/sanity';
-import Image from 'next/image';
-import { Card, CardContent } from '@/components/ui/card';
-import { Handshake, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-"use client";
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { Handshake, ArrowRight } from 'lucide-react';
