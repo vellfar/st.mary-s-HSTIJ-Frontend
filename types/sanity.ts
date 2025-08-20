@@ -12,9 +12,15 @@ export interface About {
 export interface Admissions {
   _id: string;
   title: string;
+  subtitle?: string;
   requirements: any[];
   process: any[];
-  contact: string;
+  programs?: { _ref: string }[];
+  calendar?: { label: string; date: string; description: string }[];
+  formInstructions?: any[];
+  faq?: { question: string; answer: string }[];
+  contactEmail?: string;
+  contactPhone?: string;
 }
 
 export interface Faculty {
