@@ -1,6 +1,6 @@
 "use client";
-import { useRealtimeType } from '@/lib/useRealtimeType';
-import type { News } from '@/types/sanity';
+import { useEffect, useState } from 'react';
+import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import Header from '@/components/header';
 import FooterGen from '@/components/footer-general';
@@ -8,8 +8,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Newspaper, CalendarDays, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
-export default function NewsClient() {
-  const newsItems = useRealtimeType<News>('news');
+export default function NewsClient({ news }: { news?: any[] }) {
+  if (!news || news.length === 0) {
+    return <main className="min-h-screen flex items-center justify-center text-gray-500 text-xl">Loading news...</main>;
+  }
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
       <Header />
@@ -47,7 +49,7 @@ export default function NewsClient() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {newsItems.map((item, idx) => (
+            {news.map((item: any, idx: number) => (
               <Card key={item._id || idx} className="overflow-hidden rounded-sm shadow-xl hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-gray-50 to-white group">
                 <div className="relative w-full h-56 overflow-hidden">
                   <Image

@@ -1,6 +1,6 @@
 "use client";
-import { useRealtimeType } from '@/lib/useRealtimeType';
-import type { Gallery } from '@/types/sanity';
+import { useEffect, useState } from 'react';
+import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import Header from '@/components/header';
 import FooterGen from '@/components/footer-general';
@@ -9,22 +9,21 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Camera, ArrowRight } from 'lucide-react';
 
-export default function GalleryClient() {
-  const galleries = useRealtimeType<Gallery>('gallery');
+export default function GalleryClient({ galleries }: { galleries?: any[] }) {
+  if (!galleries || galleries.length === 0) {
+    return <main className="min-h-screen flex items-center justify-center text-gray-500 text-xl">Loading gallery...</main>;
+  }
   // Flatten all images from all gallery docs, filter out images without valid URLs
-  const galleryItems = galleries.flatMap(g =>
+  const galleryItems = galleries.flatMap((g: any) =>
     (g.images || [])
-      .filter(img => img?.asset?.url)
-      .map(img => ({
+      .filter((img: any) => img?.asset?.url)
+      .map((img: any) => ({
         src: img.asset.url,
         alt: g.title,
         title: g.title,
-        category: '' // Optionally add a category field to the schema
+        category: ''
       }))
   );
-  // Debug log to help diagnose missing images
-  console.log('Gallery images:', galleryItems);
-
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
       {/* Header */}

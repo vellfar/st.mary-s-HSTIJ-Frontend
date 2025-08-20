@@ -1,6 +1,6 @@
 "use client";
-import { useRealtimeType } from '@/lib/useRealtimeType';
-import type { Success } from '@/types/sanity';
+import { useEffect, useState } from 'react';
+import { client } from '@/lib/sanity';
 import Image from 'next/image';
 import Header from '@/components/header';
 import FooterGen from '@/components/footer-general';
@@ -9,8 +9,10 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { Trophy, Quote, ArrowRight } from 'lucide-react';
 
-export default function SuccessClient() {
-  const stories = useRealtimeType<Success>('success');
+export default function SuccessClient({ successStories }: { successStories?: any[] }) {
+  if (!successStories || successStories.length === 0) {
+    return <main className="min-h-screen flex items-center justify-center text-gray-500 text-xl">Loading success stories...</main>;
+  }
   return (
     <div className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
       <Header />
@@ -48,7 +50,7 @@ export default function SuccessClient() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            {stories.map((story) => (
+            {successStories.map((story: any) => (
               <Card key={story._id} className="overflow-hidden rounded-sm shadow-xl hover:shadow-2xl transition-all duration-300 border-0 bg-gradient-to-br from-gray-50 to-white group">
                 <div className="relative w-full h-64 overflow-hidden">
                   <Image

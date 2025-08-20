@@ -4,14 +4,15 @@ import imageUrlBuilder from '@sanity/image-url'
 import type { SanityDocument } from 'next-sanity'
 import type { About, Admissions, Faculty, Gallery, News, Partner, Program, Success, Hero, SiteSettings, ContactSubmission } from '../types/sanity'
 
-// Single client for both read and write operations
+// Use token only server-side, CDN for client-side fetches
+const isServer = typeof window === 'undefined';
 export const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
   apiVersion: '2023-05-03',
-  token: process.env.SANITY_API_TOKEN,
-  useCdn: false,
-})
+  token: isServer ? process.env.SANITY_API_TOKEN : undefined,
+  useCdn: !isServer,
+});
 
 const builder = imageUrlBuilder(client)
 export function urlFor(source: any) {

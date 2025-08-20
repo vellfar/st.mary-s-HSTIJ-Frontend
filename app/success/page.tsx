@@ -1,7 +1,9 @@
 
 
 import SuccessClient from './SuccessClient';
+import { getSuccessStories } from '@/lib/sanity';
 
-export default function SuccessStoriesPage() {
-  return <SuccessClient />;
+export default async function SuccessPage() {
+  const successStories = await getSuccessStories();
+  return <SuccessClient successStories={successStories} />;
 }

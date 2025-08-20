@@ -1,6 +1,6 @@
 "use client";
-import { useRealtimeType } from '@/lib/useRealtimeType';
-import type { Program } from '@/types/sanity';
+import { useEffect, useState } from 'react';
+import { client } from '@/lib/sanity';
 import Header from '@/components/header';
 import FooterGen from '@/components/footer-general';
 import Image from 'next/image';
@@ -9,8 +9,10 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Users, Award, BookOpen, Calendar, MapPin } from 'lucide-react';
 
-export default function ProgramsClient() {
-  const programs = useRealtimeType<Program>('programs');
+export default function ProgramsClient({ programs }: { programs?: any[] }) {
+  if (!programs || programs.length === 0) {
+    return <main className="min-h-screen flex items-center justify-center text-gray-500 text-xl">Loading programs...</main>;
+  }
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 text-gray-900">
       {/* Header */}
@@ -81,15 +83,20 @@ export default function ProgramsClient() {
                   {/* Image */}
                   <div className={`relative ${index % 2 === 1 ? 'md:col-start-2' : ''}`}>
                     <div className={`absolute inset-0 bg-gradient-to-br ${program.color} opacity-10`}></div>
-                    <Image 
-                      src={typeof program.image === 'string' ? program.image : program.image?.asset?.url || "/placeholder.svg"} 
-                      alt={program.title}
-                      width={600} 
-                      height={400} 
-                      className="w-full h-full object-cover min-h-[400px]"
-                    />
+                    {program.image?.asset?.url ? (
+                      <Image 
+                        src={program.image.asset.url}
+                        alt={program.title}
+                        width={600} 
+                        height={400} 
+                        className="w-full h-full object-cover min-h-[400px]"
+                      />
+                    ) : (
+                      <div className="w-full h-full min-h-[400px] bg-gray-200 flex items-center justify-center text-gray-500">
+                        No image available
+                      </div>
+                    )}
                   </div>
-                  
                   {/* Content */}
                   <CardContent className={`p-12 flex flex-col justify-center ${index % 2 === 1 ? 'md:col-start-1' : ''}`}>
                     <div className="space-y-6">
@@ -127,7 +134,7 @@ export default function ProgramsClient() {
                       <div>
                         <h4 className="font-semibold text-gray-900 mb-3">Program Highlights</h4>
                         <div className="grid grid-cols-2 gap-2">
-                          {program.highlights.map((highlight, idx) => (
+                          {program.highlights.map((highlight: string, idx: number) => (
                             <div key={idx} className="flex items-center gap-2 text-sm text-gray-600">
                               <Award className="h-3 w-3 text-red-900" />
                               <span>{highlight}</span>
@@ -138,11 +145,11 @@ export default function ProgramsClient() {
 
                       <div className="pt-4">
                         <Link 
-                          href={`/programs/${program.id}`}
+                          href={`/contact`}
                           className="inline-flex items-center gap-2 bg-red-900 text-white px-8 py-3 rounded-none hover:bg-red-800 transition-colors font-medium tracking-wide"
                         >
                           <BookOpen className="h-4 w-4" />
-                          Explore Program
+                          Ask About This Program
                         </Link>
                       </div>
                     </div>
